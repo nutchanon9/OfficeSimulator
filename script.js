@@ -4,6 +4,41 @@ let internMultiplier = 1;
 let level = 1;
 let pointsToNextLevel = 50; // Points required to level up
 
+// Player setup logic
+document.getElementById("startGame").addEventListener("click", () => {
+    const name = document.getElementById("playerName").value;
+    const role = document.getElementById("playerRole").value;
+
+    if (name.trim() === "") {
+        alert("Please enter a name!");
+        return;
+    }
+
+    // Save player data
+    localStorage.setItem("playerName", name);
+    localStorage.setItem("playerRole", role);
+
+    // Show greeting and hide setup
+    const greeting = document.getElementById("greeting");
+    greeting.innerText = `Welcome, ${name} the ${role}!`;
+    greeting.classList.remove("hidden");
+
+    document.getElementById("playerSetup").remove();
+});
+
+// Load player data on page reload
+document.addEventListener("DOMContentLoaded", () => {
+    const name = localStorage.getItem("playerName");
+    const role = localStorage.getItem("playerRole");
+
+    if (name && role) {
+        const greeting = document.getElementById("greeting");
+        greeting.innerText = `Welcome back, ${name} the ${role}!`;
+        greeting.classList.remove("hidden");
+        document.getElementById("playerSetup").remove();
+    }
+});
+
 function checkLevelUp() {
     if (points >= pointsToNextLevel) {
         level += 1;
@@ -15,6 +50,15 @@ function checkLevelUp() {
     }
 }
 
+function logTask(taskName) {
+    const log = document.getElementById('taskLog');
+    const logItem = document.createElement('li');
+    logItem.innerText = `${taskName} completed at ${new Date().toLocaleTimeString()}`;
+    logItem.className = "text-sm text-gray-700 mb-1";
+
+    log.prepend(logItem); // Add new log item to the top
+}
+
 // Call checkLevelUp after every task
 document.getElementById('taskButton').addEventListener('click', () => {
     points += internMultiplier;
@@ -24,34 +68,36 @@ document.getElementById('taskButton').addEventListener('click', () => {
 
 function startProgressBar(duration) {
     const progressBar = document.getElementById('progressBar');
-    const container = document.getElementById('progressBarContainer');
-    container.style.display = 'block';
     progressBar.style.width = '0%';
 
     let progress = 0;
     const interval = setInterval(() => {
-        progress += 100 / (duration / 100); // Increment based on duration
+        progress += 100 / (duration / 100); // Increment width
         progressBar.style.width = `${progress}%`;
 
         if (progress >= 100) {
             clearInterval(interval);
-            container.style.display = 'none';
         }
     }, 100);
 }
 // Update points display
 function updatePoints() {
-    document.getElementById('points').innerText = points;
+    const pointsElement = document.getElementById('points');
+    pointsElement.innerText = points;
+
+    // Add animation class
+    pointsElement.classList.add('animate-bounce');
+    setTimeout(() => pointsElement.classList.remove('animate-bounce'), 300);
 }
 
-// Example: Add progress bar for "File Report" task
+// Call this when a task starts
 document.getElementById('taskButton').addEventListener('click', () => {
-    startProgressBar(2000); // 2-second progress bar
+    startProgressBar(2000); // 2 seconds
     points += internMultiplier;
     updatePoints();
     checkLevelUp();
+    logTask("Filed a report");
 });
-
 // Email Task
 document.getElementById('emailTask').addEventListener('click', () => {
     points += 2; // Add points for sending emails

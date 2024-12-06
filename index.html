@@ -5,29 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bureaucracy Simulator</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
     <h1>Bureaucracy Simulator</h1>
     <p>Welcome to the grind!</p>
-    <p>Level: <span id="level">1</span></p>
-    <div id="progressBarContainer" style="display: none;">
-        <div id="progressBar" style="width: 0%; height: 20px; background-color: green;"></div>
+    <div id="playerSetup" class="mb-8">
+        <label for="playerName" class="block text-gray-800 font-bold">Enter Your Name:</label>
+        <input type="text" id="playerName" class="border border-gray-300 p-2 rounded">
+        <label for="playerRole" class="block text-gray-800 font-bold mt-4">Choose Your Role:</label>
+        <select id="playerRole" class="border border-gray-300 p-2 rounded">
+            <option value="Intern">Intern</option>
+            <option value="Manager">Manager</option>
+            <option value="CEO">CEO</option>
+        </select>
+        <button id="startGame" class="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4">
+            Start Game
+        </button>
     </div>
+    <h2 id="greeting" class="text-gray-800 font-bold hidden"></h2>    
+    <p>Level: <span id="level">1</span></p>
+    <div class="w-full bg-gray-200 rounded-full h-4 mt-4">
+        <div id="progressBar" class="bg-green-500 h-4 rounded-full" style="width: 0%;"></div>
+    </div>
+    <h2 class="mt-8 text-gray-800 font-bold">Task Log</h2>
+    <ul id="taskLog" class="mt-4 text-left bg-gray-100 p-4 rounded-lg"></ul>
+
     
 
 
     <!-- Task Button -->
-    <button id="taskButton">File Report</button>
     <button id="emailTask">Send Email (2 Points)</button>
     <button id="meetingTask">Attend Meeting (5 Points)</button>
-
-
+    <button id="taskButton" class="bg-green-500 text-white font-bold py-2 px-4 rounded animate-pulse">File Report</button>
+    
     <!-- Points Display -->
-    <p>Office Points: <span id="points">0</span></p>
+    <p class="mt-4 text-gray-700">Office Points: <span id="points" class="font-bold text-gray-800">0</span></p>
 
     <!-- Upgrade Section -->
     <h2>Upgrades</h2>
-    <button id="upgradeButton">Hire Intern (Cost: 10 Points)</button>
+    <button id="upgradeButton" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition">Hire Intern</button>
     <button id="softwareUpgradeButton">Buying OnFirdge365 (Cost: 10 Points)</button>
     <h2>Shop</h2>
     <div id="shop">
