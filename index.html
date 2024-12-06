@@ -9,9 +9,18 @@
 <body>
     <h1>Bureaucracy Simulator</h1>
     <p>Welcome to the grind!</p>
+    <p>Level: <span id="level">1</span></p>
+    <div id="progressBarContainer" style="display: none;">
+        <div id="progressBar" style="width: 0%; height: 20px; background-color: green;"></div>
+    </div>
+    
+
 
     <!-- Task Button -->
     <button id="taskButton">File Report</button>
+    <button id="emailTask">Send Email (2 Points)</button>
+    <button id="meetingTask">Attend Meeting (5 Points)</button>
+
 
     <!-- Points Display -->
     <p>Office Points: <span id="points">0</span></p>
@@ -20,6 +29,12 @@
     <h2>Upgrades</h2>
     <button id="upgradeButton">Hire Intern (Cost: 10 Points)</button>
     <button id="softwareUpgradeButton">Buying OnFirdge365 (Cost: 10 Points)</button>
+    <h2>Shop</h2>
+    <div id="shop">
+    <button id="buyCoffee">Buy Coffee (20 Points)</button>
+    <button id="buyChair">Buy Ergonomic Chair (50 Points)</button>
+    </div>
+
 
     <script src="script.js"></script>
 </body>
