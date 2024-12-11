@@ -1,6 +1,5 @@
 import { Game } from './game.js';
 import { initializeTasks } from './features/tasks.js';
-import { initializeUpgrades } from './features/upgrades.js';
 import { addDailyBonus } from './features/dailyBonus.js';
 import { initializePrestige } from './features/prestige.js';
 import { switchDepartment } from './features/tasks.js';
@@ -8,9 +7,15 @@ import { switchDepartment } from './features/tasks.js';
 document.addEventListener('DOMContentLoaded', () => {
     Game.init();
     initializeTasks();
-    initializeUpgrades();
     addDailyBonus();
     initializePrestige();
+    // Handle map location clicks
+    document.querySelectorAll('.map-location').forEach((locationButton) => {
+        locationButton.addEventListener('click', () => {
+            const location = locationButton.dataset.location;
+            Game.moveTo(location);
+        });
+    });
 
     setInterval(() => {
         Game.checkAchievements();
